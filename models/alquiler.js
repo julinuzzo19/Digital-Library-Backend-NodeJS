@@ -5,7 +5,10 @@ var AlquilerSchema = Schema({
     id:Number,
     fechaAlquiler:Date,
     fechaReserva:Date,
-    fechaDevolucion:Date
+    fechaDevolucion:Date,
+    clienteId:Number,
+    estadoAlquiler:Number,
+    isbn:String
 });
 
 module.exports = mongoose.model('Alquiler', AlquilerSchema);
