@@ -13,6 +13,32 @@ var alquilerController = {
     });
   },
 
+  getAlquilerById: (req, res) => {
+    var alquilerId = req.params.id;
+
+    if (!alquilerId || alquilerId == null) {
+      return res.status(404).send({
+        status: "error",
+        message: "No existe el articulo !!!",
+      });
+    }
+
+    Alquiler.findById(alquilerId, (err, alquiler) => {
+      if (err || !alquiler) {
+        return res.status(404).send({
+          status: "error",
+          message: "No se encuentra el articulo!",
+        });
+      }
+
+      //Si se encuentra
+      return res.status(200).send({
+        status:'sucess',
+        alquiler
+      })
+    });
+  },
+
   postAlquiler: (req, res) => {
     // Recoger parametros por post
     var params = req.body;
@@ -48,8 +74,8 @@ var alquilerController = {
     //Recoger id por url
     var alquilerId = req.params.id;
 
-   //_id obligatorio
-    Alquiler.findOneAndDelete({_id: alquilerId }, (err, alquilerRemoved) => {
+    //_id obligatorio
+    Alquiler.findOneAndDelete({ _id: alquilerId }, (err, alquilerRemoved) => {
       if (err) {
         return res.status(500).send({
           status: "error",
