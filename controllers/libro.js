@@ -1,13 +1,27 @@
+var Libro = require("../models/libro");
 
+var libroController = {
+  getLibros: (req, res) => {
+    var query = Libro.find({});
 
-var libroController={
+    query.exec((err, libro) => {
+      return res.status(200).send({
+        message: "ok",
+        libro,
+      });
+    });
+  },
 
-    test: (req,res)=>{
-        return res.status(200).send({
-            test:'testeando librocontroller'
-        });
-    }
+  getLibroByIsbn: (req, res) => {
+    var isbnlibro = req.params.isbn;
 
-}
+    Libro.find({ isbn: isbnlibro }, (err, libro) => {
+      return res.status(200).send({
+        status: "Ok",
+        libro,
+      });
+    });
+  },
+};
 
-module.exports= libroController;
+module.exports = libroController;

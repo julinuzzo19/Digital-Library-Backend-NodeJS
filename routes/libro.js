@@ -6,6 +6,9 @@ const router= express.Router();
 
 //Rutas
 
-router.get('/test', LibroController.test);
+router.get('/', LibroController.getLibros);
+router.get('/:isbn',LibroController.getLibroByIsbn);
+
+
 
 module.exports= router;

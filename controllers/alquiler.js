@@ -1,4 +1,3 @@
-const alquiler = require("../models/alquiler");
 var Alquiler = require("../models/alquiler");
 
 var alquilerController = {
@@ -13,17 +12,17 @@ var alquilerController = {
     });
   },
 
-  getAlquilerById: (req, res) => {
-    var alquilerId = req.params.id;
+  getAlquilerByClienteId: (req, res) => {
+    var cliente_Id = req.params.id;
 
-    if (!alquilerId || alquilerId == null) {
+    if (!cliente_Id || cliente_Id == null) {
       return res.status(404).send({
         status: "error",
         message: "No existe el articulo !!!",
       });
     }
 
-    Alquiler.findById(alquilerId, (err, alquiler) => {
+    Alquiler.find({ clienteId: cliente_Id }, (err, alquiler) => {
       if (err || !alquiler) {
         return res.status(404).send({
           status: "error",
@@ -33,9 +32,9 @@ var alquilerController = {
 
       //Si se encuentra
       return res.status(200).send({
-        status:'sucess',
-        alquiler
-      })
+        status: "sucess",
+        alquiler,
+      });
     });
   },
 
@@ -91,8 +90,40 @@ var alquilerController = {
     });
   },
 
-  putAlquiler: (req, res) => {},
-  getAlquilerbyClienteId: (req, res) => {},
+  putAlquiler: (req, res) => {
+    //Recoger el id del alquiler por la url
+    var alquilerId = req.params.id;
+
+    //Recoger los datos que llegan por put
+    var params = req.body;
+
+    //Encontrar y actualizar
+    Alquiler.findByIdAndUpdate(
+      { _id: alquilerId },
+      params,
+      { new: true },
+      (err, alquilerUpdated) => {
+        if (err) {
+          return res.status(500).send({
+            status: "error",
+            message: "Error al actualizar",
+          });
+        }
+
+        if (!alquilerUpdated) {
+          return res.status(404).send({
+            status: "error",
+            message: "No existe el articulo !!!",
+          });
+        }
+
+        return res.status(200).send({
+          status: "success",
+          article: alquilerUpdated,
+        });
+      }
+    );
+  },
 }; //end controller;
 
 module.exports = alquilerController;
