@@ -1,0 +1,16 @@
+
+### GET Alquileres
+GET  http://localhost:3900/api/alquiler
+
+### GET Alquileres by ClienteId
+GET http://localhost:3900/api/alquiler/cliente/1
+
+### POST Alquiler
+ POST http://localhost:3900/api/alquiler/
+ Content-Type: application/json
+
+ { 
+  "fechaAlquiler": "26/04/2021",
+  "clienteId": 1,
+  "isbn": "2"
+ }

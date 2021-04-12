@@ -61,7 +61,6 @@ async function seed() {
     await libros[2].save();
     await libros[3].save();
     await libros[4].save();
-  
 
     mongoose.disconnect();
     console.log("Database Seeded");

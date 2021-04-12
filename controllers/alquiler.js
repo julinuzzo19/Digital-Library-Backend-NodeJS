@@ -1,3 +1,4 @@
+const moment = require("moment");
 var Alquiler = require("../models/alquiler");
 
 var alquilerController = {
@@ -51,9 +52,9 @@ var alquilerController = {
     alquiler.clienteId = params.clienteId;
     alquiler.isbn = params.isbn;
 
-    alquiler.clienteId = 1;
     alquiler.estadoAlquiler = 1;
-    alquiler.fechadevolucion = "16/3/2021";
+    alquiler.fechaDevolucion = moment(alquiler.fechaAlquiler, "DD/MM/YYYY").add(7,"days").format('DD/MM/YYYY');
+
 
     //Guardar alquiler
     alquiler.save((err, alquiler) => {
