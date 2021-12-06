@@ -1,2 +1,7 @@
 # Digital-Library-Backend-NodeJS
-Practicing NodeJS backend with a project finished on .NET framework
+API CRUD con MongoDB de alquileres de libros.
+
+Dependencias:
+-Mongoose
+-Express
+-Moment
